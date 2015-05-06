@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+ <head>
+ <meta charset = "UTF-8">
+ <title>contact.php</title>
+ <style type = "text/css">
+  table, th, td {border: 1px solid black};
+ </style>
+ </head>
+ <body>
+ <p>
+ <?php
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "employees";
+
+try {
+    $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "UPDATE employees SET first_name='Jimmy' ";
+	$sql = "UPDATE employees SET last_name='Patel' ";
+
+    // Prepare statement
+    $temp = $db->prepare($sql);
+
+    // execute the query
+    $temp->execute();
+
+    // echo a message to say the UPDATE succeeded
+    echo $temp->rowCount() . " records UPDATED successfully";
+    }
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+
+$db = null;
+?> 
+ ?>
+ </p>
+ </body>
+</html>
