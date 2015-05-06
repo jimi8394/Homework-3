@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+ <head>
+ <meta charset = "UTF-8">
+ <title>contact.php</title>
+ <style type = "text/css">
+  table, th, td {border: 1px solid black};
+ </style>
+ </head>
+ <body>
+ <p>
+ <?php
+$hostname ='mysql:host=localhost; dbname=employees';
+$user = 'root';
+$pass = 'Bapa8394';
+try {
+	$db= new PDO($hostname, $user, $pass);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = "Select sum(salary) from salaries where to_date = ‘9999-01-01’ ";
+
+ 
+  
+	print "<table> \n";
+	$final = $db->query($sql);
+
+	$row = $final->fetch(PDO::FETCH_ASSOC);
+		print " <tr> \n";
+			foreach ($row as $field => $value)
+		{
+			print " <th>$field</th> \n";
+		} 
+	print " </tr> \n";
+
+	$info = $db->query($sql);
+	$info->setFetchMode(PDO::FETCH_ASSOC);
+	foreach($info as $row)
+		{
+			/*print " <tr> \n";
+			foreach ($row as $temp=>$value)
+				{
+					print " <td>$value</td> \n";
+				} 
+			print " </tr> \n";
+			*/
+			print " <tr> \n";
+			foreach ($row as $temp=>$value)
+				{
+					print " <td>$value</td> \n";
+				} 
+			print " </tr> \n";
+		}
+	print "</table> \n";
+}
+catch(PDOException $e) 
+{
+   echo 'ERROR: ' . $e->getMessage();
+}
+ ?>
+ </p>
+ </body>
+</html>
